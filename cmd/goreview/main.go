@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/einride/goreview/internal/passes/importgroups"
+	"github.com/einride/goreview/internal/passes/multilineliterals"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/multichecker"
 )
@@ -12,6 +13,7 @@ import (
 func allAnalyzers() []*analysis.Analyzer {
 	return []*analysis.Analyzer{
 		importgroups.Analyzer(),
+		multilineliterals.Analyzer(),
 		// ...insert more analyzers here
 	}
 }
