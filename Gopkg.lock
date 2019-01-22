@@ -61,6 +61,8 @@
     "golang.org/x/tools/go/analysis",
     "golang.org/x/tools/go/analysis/analysistest",
     "golang.org/x/tools/go/analysis/multichecker",
+    "golang.org/x/tools/go/analysis/passes/inspect",
+    "golang.org/x/tools/go/ast/inspector",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
