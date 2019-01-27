@@ -1,8 +1,7 @@
 package main
 
 import (
-	"strings"
-
+	"github.com/einride/goreview/internal/middleware"
 	"github.com/einride/goreview/internal/passes/filenames"
 	"github.com/einride/goreview/internal/passes/importgroups"
 	"github.com/einride/goreview/internal/passes/multilineliterals"
@@ -20,37 +19,12 @@ func allAnalyzers() []*analysis.Analyzer {
 	}
 }
 
-// runFn is a short-hand type alias for the (*Analyzer).Run function.
-type runFn = func(*analysis.Pass) (interface{}, error)
-
-// middleware modifies the behavior of a runFn.
-type middleware func(runFn) runFn
+func allMiddleware() []middleware.Middleware {
+	return []middleware.Middleware{
+		middleware.ExcludeTestBinaries,
+	}
+}
 
 func main() {
-	multichecker.Main(applyMiddleware([]middleware{
-		excludeGeneratedTestBinaries,
-		// ...insert more middleware here
-	}, allAnalyzers())...)
-}
-
-// applyMiddleware applies the provided middleware(s) to the run function of each provided Analyzer.
-func applyMiddleware(ms []middleware, as []*analysis.Analyzer) []*analysis.Analyzer {
-	for _, a := range as {
-		for _, m := range ms {
-			a.Run = m(a.Run)
-		}
-	}
-	return as
-}
-
-// excludeGeneratedTestBinaries modifies a runFn to completely skip generated test binary packages.
-//
-// Generated test binary packages have a `.test`-suffix.
-func excludeGeneratedTestBinaries(run runFn) runFn {
-	return func(pass *analysis.Pass) (i interface{}, e error) {
-		if strings.HasSuffix(pass.Pkg.Path(), ".test") {
-			return nil, nil
-		}
-		return run(pass)
-	}
+	multichecker.Main(middleware.Apply(allMiddleware(), allAnalyzers())...)
 }
