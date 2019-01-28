@@ -35,39 +35,39 @@ func Structs() {
 
 func Slices() {
 	// ok
-	_ = []int{}
+	_ = []A{}
 
 	// ok
-	_ = []int{1}
+	_ = []A{{}}
 
 	// ok
-	_ = []int{1, 2}
+	_ = []A{{}, {}}
 
 	// ok
-	_ = []int{
-		1, 2,
+	_ = []A{
+		{}, {},
 	}
 
 	// ok
-	_ = []int{
-		1,
-		2,
+	_ = []A{
+		{},
+		{},
 	}
 
 	// not ok
-	_ = []int{
+	_ = []A{
 		// empty
 	} // want "put closing brace on same line as opening brace"
 
 	// not ok
-	_ = []int{1, // want "line break after opening brace"
-		2} // want "line break before closing brace"
+	_ = []A{{}, // want "line break after opening brace"
+		{}} // want "line break before closing brace"
 
 	// not ok
-	_ = []int{
-		1, 2, // want "line break after each element"
-		3,
-		4,
-		5, 6, // want "line break after each element"
+	_ = []A{
+		{}, {}, // want "line break after each element"
+		{},
+		{},
+		{}, {}, // want "line break after each element"
 	}
 }

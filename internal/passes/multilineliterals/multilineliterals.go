@@ -32,8 +32,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		if lBrace.Line == rBrace.Line {
 			return // one-liner always OK
 		}
-		if isByteSlice(pass, lit) {
-			return // byte slices always OK
+		if isBasicSliceOrArray(pass, lit) {
+			return // slices and arrays of basic types always OK
 		}
 		if len(lit.Elts) == 0 {
 			if lBrace.Line != rBrace.Line {
@@ -71,14 +71,16 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	return nil, nil
 }
 
-func isByteSlice(pass *analysis.Pass, lit *ast.CompositeLit) bool {
-	slice, ok := pass.TypesInfo.TypeOf(lit).(*types.Slice)
-	if !ok {
+func isBasicSliceOrArray(pass *analysis.Pass, lit *ast.CompositeLit) bool {
+	var elem types.Type
+	switch lit := pass.TypesInfo.TypeOf(lit).(type) {
+	case *types.Array:
+		elem = lit.Elem()
+	case *types.Slice:
+		elem = lit.Elem()
+	default:
 		return false
 	}
-	basic, ok := slice.Elem().(*types.Basic)
-	if !ok {
-		return false
-	}
-	return basic.Kind() == types.Byte
+	_, ok := elem.(*types.Basic)
+	return ok
 }
