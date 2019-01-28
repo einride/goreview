@@ -2,6 +2,7 @@ package multilineliterals
 
 import (
 	"go/ast"
+	"go/types"
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
@@ -30,6 +31,9 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		rBrace := pass.Fset.Position(lit.Rbrace)
 		if lBrace.Line == rBrace.Line {
 			return // one-liner always OK
+		}
+		if isByteSlice(pass, lit) {
+			return // byte slices always OK
 		}
 		if len(lit.Elts) == 0 {
 			if lBrace.Line != rBrace.Line {
@@ -65,4 +69,16 @@ func run(pass *analysis.Pass) (interface{}, error) {
 		}
 	})
 	return nil, nil
+}
+
+func isByteSlice(pass *analysis.Pass, lit *ast.CompositeLit) bool {
+	slice, ok := pass.TypesInfo.TypeOf(lit).(*types.Slice)
+	if !ok {
+		return false
+	}
+	basic, ok := slice.Elem().(*types.Basic)
+	if !ok {
+		return false
+	}
+	return basic.Kind() == types.Byte
 }
