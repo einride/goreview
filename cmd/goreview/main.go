@@ -19,9 +19,12 @@ func allAnalyzers() []*analysis.Analyzer {
 	}
 }
 
+// allMiddleware returns all middleware to apply to the included analyzers.
 func allMiddleware() []middleware.Middleware {
 	return []middleware.Middleware{
 		middleware.ExcludeTestBinaries,
+		middleware.ExcludeGeneratedFiles,
+		// ...insert more middleware here
 	}
 }
 
