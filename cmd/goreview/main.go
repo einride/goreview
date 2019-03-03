@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/einride/goreview/internal/middleware"
+	"github.com/einride/goreview/internal/passes/caseclauses"
 	"github.com/einride/goreview/internal/passes/filenames"
 	"github.com/einride/goreview/internal/passes/importgroups"
 	"github.com/einride/goreview/internal/passes/multilineliterals"
@@ -15,6 +16,7 @@ func allAnalyzers() []*analysis.Analyzer {
 		importgroups.Analyzer(),
 		multilineliterals.Analyzer(),
 		filenames.Analyzer(),
+		caseclauses.Analyzer(),
 		// ...insert more analyzers here
 	}
 }
