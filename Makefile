@@ -1,10 +1,15 @@
 .PHONY: all
 all: \
+	mod-tidy \
 	dep-ensure \
 	dep-check \
 	go-lint \
 	go-review \
-	go-test
+	go-test \
+	git-verify-nodiff \
+	git-verify-submodules
+
+export GO111MODULE = on
 
 .PHONY: build
 build:
@@ -21,6 +26,11 @@ dep-ensure: $(DEP)
 .PHONY: dep-check
 dep-check: $(DEP)
 	$(DEP) check
+
+# mod-tidy: ensure Go module files are in sync
+.PHONY: mod-tidy
+mod-tidy:
+	go mod tidy
 
 .PHONY: go-lint
 go-lint: $(GOLANGCI_LINT)
