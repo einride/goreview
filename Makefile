@@ -1,8 +1,6 @@
 .PHONY: all
 all: \
 	mod-tidy \
-	dep-ensure \
-	dep-check \
 	go-lint \
 	go-review \
 	go-test \
@@ -18,14 +16,6 @@ build:
 include build/rules.mk
 build/rules.mk: build
 	@# Included in submodule: build
-
-.PHONY: dep-ensure
-dep-ensure: $(DEP)
-	$(DEP) ensure -v
-
-.PHONY: dep-check
-dep-check: $(DEP)
-	$(DEP) check
 
 # mod-tidy: ensure Go module files are in sync
 .PHONY: mod-tidy
