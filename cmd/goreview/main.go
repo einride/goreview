@@ -7,6 +7,7 @@ import (
 	"github.com/einride/goreview/internal/passes/importgroups"
 	"github.com/einride/goreview/internal/passes/labels"
 	"github.com/einride/goreview/internal/passes/multilineliterals"
+	"github.com/einride/goreview/internal/passes/pkgerrors"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/multichecker"
 )
@@ -19,6 +20,7 @@ func allAnalyzers() []*analysis.Analyzer {
 		filenames.Analyzer(),
 		comments.Analyzer(),
 		labels.Analyzer(),
+		pkgerrors.Analyzer(),
 		// ...insert more analyzers here
 	}
 }
