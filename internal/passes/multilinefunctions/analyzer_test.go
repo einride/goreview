@@ -14,3 +14,7 @@ func TestFunctionDeclarationParameters(t *testing.T) {
 func TestFunctionDeclarationResults(t *testing.T) {
 	analysistest.Run(t, analysistest.TestData(), multilinefunctions.Analyzer(), "b")
 }
+
+func TestFunctionCalls(t *testing.T) {
+	analysistest.Run(t, analysistest.TestData(), multilinefunctions.Analyzer(), "c")
+}

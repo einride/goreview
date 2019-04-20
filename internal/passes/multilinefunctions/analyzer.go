@@ -23,15 +23,39 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	inspectResult := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 	nodeFilter := []ast.Node{
 		(*ast.FuncType)(nil),
+		(*ast.CallExpr)(nil),
 	}
 	inspectResult.Preorder(nodeFilter, func(n ast.Node) {
 		switch node := n.(type) {
 		case *ast.FuncType:
 			analyzeFunctionDeclaration(pass, node.Params)
 			analyzeFunctionDeclaration(pass, node.Results)
+		case *ast.CallExpr:
+			analyseFunctionCall(pass, node)
 		}
 	})
 	return nil, nil
+}
+
+func analyseFunctionCall(pass *analysis.Pass, call *ast.CallExpr) {
+	lastLine := pass.Fset.Position(call.Rparen).Line
+	firstLine := pass.Fset.Position(call.Lparen).Line
+	if firstLine == lastLine {
+		return
+	}
+	if pass.Fset.Position(call.Args[0].Pos()).Line == firstLine {
+		pass.Reportf(call.Lparen, "opening paren should be on a new line")
+	}
+	prevEnd := 0
+	for _, a := range call.Args {
+		if pass.Fset.Position(a.Pos()).Line == prevEnd {
+			pass.Reportf(a.Pos(), "each argument should start on a new line")
+		}
+		prevEnd = pass.Fset.Position(a.End()).Line
+	}
+	if prevEnd == lastLine {
+		pass.Reportf(call.Rparen, "closing paren should be on a new line")
+	}
 }
 
 func analyzeFunctionDeclaration(pass *analysis.Pass, fields *ast.FieldList) {
