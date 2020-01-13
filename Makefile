@@ -24,7 +24,7 @@ mod-tidy:
 
 .PHONY: go-lint
 go-lint: $(GOLANGCI_LINT)
-	$(GOLANGCI_LINT) run ./...
+	$(GOLANGCI_LINT) run --config build/.golangci.yml
 
 .PHONY: go-review
 go-review:
