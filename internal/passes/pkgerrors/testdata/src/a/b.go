@@ -1,7 +1,9 @@
 package a
 
-import "github.com/pkg/errors" // want `use "golang.org/x/xerrors" instead of "github.com/pkg/errors"`
+import (
+	"golang.org/x/xerrors" // want `use "github.com/pkg/errors" instead of "golang.org/x/xerrors"`
+)
 
 func IllegalImports() {
-	_ = errors.New("hey")
+	_ = xerrors.New("hey")
 }
