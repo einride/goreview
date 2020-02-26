@@ -1,12 +1,15 @@
 .PHONY: all
 all: \
+	go-lint \
 	go-review \
-	go-test
+	go-test \
+	go-mod-tidy
 
-# mod-tidy: ensure Go module files are in sync
-.PHONY: mod-tidy
-mod-tidy:
-	go mod tidy
+include tools/golangci-lint/rules.mk
+
+.PHONY: go-lint
+go-lint: $(golangci_lint)
+	$(golangci_lint) run
 
 .PHONY: go-review
 go-review:
@@ -15,3 +18,7 @@ go-review:
 .PHONY: go-test
 go-test:
 	go test -race -cover ./...
+
+.PHONY: go-mod-tidy
+go-mod-tidy:
+	go mod tidy -v
