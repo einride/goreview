@@ -1,5 +1,5 @@
 module tools/golangci-lint
 
-go 1.13
+go 1.14
 
-require github.com/golangci/golangci-lint v1.23.6 // indirect
+require github.com/golangci/golangci-lint v1.28.3
