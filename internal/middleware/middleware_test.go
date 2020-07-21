@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/go/analysis"
+	"gotest.tools/v3/assert"
 )
 
 func TestApply(t *testing.T) {
@@ -47,10 +47,10 @@ func TestApply(t *testing.T) {
 	// then no errors should be returned
 	for _, a := range Apply([]Middleware{m}, originals) {
 		_, err := a.Run(nil)
-		require.NoError(t, err)
+		assert.NilError(t, err)
 		for _, r := range a.Requires {
 			_, err = r.Run(nil)
-			require.NoError(t, err)
+			assert.NilError(t, err)
 		}
 	}
 }

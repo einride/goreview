@@ -7,10 +7,6 @@ all: \
 
 include tools/golangci-lint/rules.mk
 
-.PHONY: go-lint
-go-lint: $(golangci_lint)
-	$(golangci_lint) run
-
 .PHONY: go-review
 go-review:
 	go run ./cmd/goreview/main.go ./...

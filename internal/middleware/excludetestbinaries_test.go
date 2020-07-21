@@ -6,8 +6,8 @@ import (
 	"go/types"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/go/analysis"
+	"gotest.tools/v3/assert"
 )
 
 func TestExcludeTestBinaries(t *testing.T) {
@@ -36,7 +36,7 @@ func TestExcludeTestBinaries(t *testing.T) {
 			_, err := ExcludeTestBinaries(run)(pass)
 			// then files for generated test binaries should be excluded
 			excluded := err == nil
-			require.Equal(t, tt.excluded, excluded)
+			assert.Equal(t, tt.excluded, excluded)
 		})
 	}
 }
