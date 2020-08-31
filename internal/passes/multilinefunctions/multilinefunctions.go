@@ -44,17 +44,34 @@ func analyseFunctionCall(pass *analysis.Pass, call *ast.CallExpr) {
 		return
 	}
 	if pass.Fset.Position(call.Args[0].Pos()).Line == firstLine {
-		pass.Reportf(call.Lparen, "opening paren should be on a new line")
-	}
-	prevEnd := 0
-	for _, a := range call.Args {
-		if pass.Fset.Position(a.Pos()).Line == prevEnd {
-			pass.Reportf(a.Pos(), "each argument should start on a new line")
+		// only ok format is if each argument starts on the line when the previous ended, like so:
+		// `a(A{
+		// ` a: nil,
+		// `}, A{})
+		prevEnd := 0
+		for _, a := range call.Args {
+			if prevEnd != 0 && pass.Fset.Position(a.Pos()).Line != prevEnd {
+				pass.Reportf(a.Pos(), "must either have all arguments on individual lines "+
+					"or no linebreaks before or after arguments")
+				return
+			}
+			prevEnd = pass.Fset.Position(a.End()).Line
 		}
-		prevEnd = pass.Fset.Position(a.End()).Line
-	}
-	if prevEnd == lastLine {
-		pass.Reportf(call.Rparen, "closing paren should be on a new line")
+
+		if prevEnd != lastLine {
+			pass.Reportf(call.Rparen, "closing paren should be on the same line as last argument")
+		}
+	} else {
+		prevEnd := 0
+		for _, a := range call.Args {
+			if pass.Fset.Position(a.Pos()).Line == prevEnd {
+				pass.Reportf(a.Pos(), "each argument should start on a new line")
+			}
+			prevEnd = pass.Fset.Position(a.End()).Line
+		}
+		if prevEnd == lastLine {
+			pass.Reportf(call.Rparen, "closing paren should be on a new line")
+		}
 	}
 }
 

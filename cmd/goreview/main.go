@@ -6,6 +6,7 @@ import (
 	"github.com/einride/goreview/internal/passes/filenames"
 	"github.com/einride/goreview/internal/passes/importgroups"
 	"github.com/einride/goreview/internal/passes/labels"
+	"github.com/einride/goreview/internal/passes/multilinefunctions"
 	"github.com/einride/goreview/internal/passes/multilineliterals"
 	"github.com/einride/goreview/internal/passes/pkgerrors"
 	"golang.org/x/tools/go/analysis"
@@ -17,6 +18,7 @@ func allAnalyzers() []*analysis.Analyzer {
 	return []*analysis.Analyzer{
 		importgroups.Analyzer(),
 		multilineliterals.Analyzer(),
+		multilinefunctions.Analyzer(),
 		filenames.Analyzer(),
 		comments.Analyzer(),
 		labels.Analyzer(),

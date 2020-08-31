@@ -14,6 +14,7 @@ func Test(t *testing.T) {
 	// need to exclude generated test binaries, since test data contains test files
 	analyzer := middleware.Apply(
 		[]middleware.Middleware{middleware.ExcludeTestBinaries},
-		[]*analysis.Analyzer{multilineliterals.Analyzer()})[0]
+		[]*analysis.Analyzer{multilineliterals.Analyzer()},
+	)[0]
 	analysistest.Run(t, testdata, analyzer, "a")
 }
