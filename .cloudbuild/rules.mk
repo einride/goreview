@@ -13,3 +13,10 @@ gcloud-builds-triggers-create:
 		--pull-request-pattern='.*' \
 		--description='$(repo_name)-review' \
 		--build-config='$(cloudbuild_root)/review.yaml'
+	gcloud beta builds triggers create github \
+		--project=$(gcp_project) \
+		--repo-owner=$(github_org) \
+		--repo-name=$(repo_name) \
+		--branch-pattern='^master$$' \
+		--description='$(repo_name)-release' \
+		--build-config='$(cloudbuild_root)/release.yaml'
