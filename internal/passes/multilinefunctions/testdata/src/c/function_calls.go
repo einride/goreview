@@ -8,6 +8,14 @@ func a(A, A) {}
 
 func foo() {
 	a(A{}, A{}) // ok
+	a(A{
+		a: nil,
+	}, A{}) // ok
+	a(A{
+		a: nil,
+	}, A{
+		a: nil,
+	}) // ok
 	a(
 		A{},
 		A{},
@@ -20,10 +28,19 @@ func foo() {
 	a(
 		A{}, A{}, // want `each argument should start on a new line`
 	)
-	a(A{}, // want `opening paren should be on a new line`
-		A{},
-	)
 	a(
 		A{},
 		A{}) // want `closing paren should be on a new line`
+	a(A{
+		a: nil,
+	},
+		A{}, // want `must either have all arguments on individual lines or no linebreaks before or after arguments`
+	)
+	a(A{},
+		A{}, // want `must either have all arguments on individual lines or no linebreaks before or after arguments`
+	)
+	a(A{
+		a: nil,
+	}, A{},
+	) // want `closing paren should be on the same line as last argument`
 }
