@@ -1,4 +1,4 @@
-package pkgerrors
+package stderror
 
 import (
 	"testing"
