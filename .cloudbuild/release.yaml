@@ -4,12 +4,14 @@ steps:
     env:
       - REPO_NAME=$REPO_NAME
       - COMMIT_SHA=$COMMIT_SHA
+
   - name: gcr.io/einride/cloud-builder
     args: [
       "bash",
       "-c",
       "gcloud secrets versions access latest --secret=einride-bot-github-token-repo > gh_token"
     ]
+
   - name: gcr.io/einride/cloud-builder
     args: [
       "bash",
