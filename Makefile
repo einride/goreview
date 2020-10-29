@@ -12,12 +12,15 @@ include tools/semantic-release/rules.mk
 
 .PHONY: go-review
 go-review:
-	go run ./cmd/goreview/main.go ./...
+	$(info [$@] reviewing Go code...)
+	@go run ./cmd/goreview/main.go ./...
 
 .PHONY: go-test
 go-test:
-	go test -race -cover ./...
+	$(info [$@] running Go tests...)
+	@go test -race -cover ./...
 
 .PHONY: go-mod-tidy
 go-mod-tidy:
-	go mod tidy -v
+	$(info [$@] tidying Go module files...)
+	@go mod tidy -v
