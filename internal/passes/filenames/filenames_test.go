@@ -3,7 +3,7 @@ package filenames_test
 import (
 	"testing"
 
-	"github.com/einride/goreview/internal/passes/filenames"
+	"go.einride.tech/review/internal/passes/filenames"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 

@@ -3,7 +3,7 @@ package multilinefunctions_test
 import (
 	"testing"
 
-	"github.com/einride/goreview/internal/passes/multilinefunctions"
+	"go.einride.tech/review/internal/passes/multilinefunctions"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 

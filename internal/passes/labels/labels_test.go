@@ -3,7 +3,7 @@ package labels_test
 import (
 	"testing"
 
-	"github.com/einride/goreview/internal/passes/labels"
+	"go.einride.tech/review/internal/passes/labels"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 
