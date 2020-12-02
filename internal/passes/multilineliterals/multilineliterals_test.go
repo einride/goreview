@@ -3,8 +3,8 @@ package multilineliterals_test
 import (
 	"testing"
 
-	"github.com/einride/goreview/internal/middleware"
-	"github.com/einride/goreview/internal/passes/multilineliterals"
+	"go.einride.tech/review/internal/middleware"
+	"go.einride.tech/review/internal/passes/multilineliterals"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/analysistest"
 )

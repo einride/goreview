@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/einride/goreview/internal/middleware"
-	"github.com/einride/goreview/internal/passes/comments"
-	"github.com/einride/goreview/internal/passes/filenames"
-	"github.com/einride/goreview/internal/passes/importgroups"
-	"github.com/einride/goreview/internal/passes/labels"
-	"github.com/einride/goreview/internal/passes/multilinefunctions"
-	"github.com/einride/goreview/internal/passes/multilineliterals"
-	"github.com/einride/goreview/internal/passes/stderror"
+	"go.einride.tech/review/internal/middleware"
+	"go.einride.tech/review/internal/passes/comments"
+	"go.einride.tech/review/internal/passes/filenames"
+	"go.einride.tech/review/internal/passes/importgroups"
+	"go.einride.tech/review/internal/passes/labels"
+	"go.einride.tech/review/internal/passes/multilinefunctions"
+	"go.einride.tech/review/internal/passes/multilineliterals"
+	"go.einride.tech/review/internal/passes/stderror"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/multichecker"
 )

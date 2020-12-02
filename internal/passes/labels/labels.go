@@ -3,7 +3,7 @@ package labels
 import (
 	"go/ast"
 
-	"github.com/einride/goreview/internal/lettercase"
+	"go.einride.tech/review/internal/lettercase"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"

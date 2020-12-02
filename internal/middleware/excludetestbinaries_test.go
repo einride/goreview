@@ -15,8 +15,8 @@ func TestExcludeTestBinaries(t *testing.T) {
 		path     string
 		excluded bool
 	}{
-		{path: "github.com/einride/goreview", excluded: false},
-		{path: "github.com/einride/goreview.test", excluded: true},
+		{path: "go.einride.tech/review", excluded: false},
+		{path: "go.einride.tech/review.test", excluded: true},
 	} {
 		tt := tt
 		t.Run(tt.path, func(t *testing.T) {

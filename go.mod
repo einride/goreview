@@ -1,4 +1,4 @@
-module github.com/einride/goreview
+module go.einride.tech/review
 
 go 1.15
 

@@ -3,7 +3,7 @@ package middleware
 import (
 	"testing"
 
-	"github.com/einride/goreview/internal/passes/importgroups"
+	"go.einride.tech/review/internal/passes/importgroups"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
