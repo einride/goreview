@@ -26,7 +26,7 @@ func foo() {
 		}, A{}, // want `each argument should start on a new line`
 	)
 	a(
-		A{}, A{}, // want `each argument should start on a new line`
+		A{}, A{}, // ok
 	)
 	a(
 		A{},

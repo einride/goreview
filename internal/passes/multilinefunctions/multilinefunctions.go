@@ -43,6 +43,12 @@ func analyseFunctionCall(pass *analysis.Pass, call *ast.CallExpr) {
 	if firstLine == lastLine {
 		return
 	}
+	if len(call.Args) == 0 {
+		return
+	}
+	if isSingleLineCall(pass, call) {
+		return
+	}
 	if pass.Fset.Position(call.Args[0].Pos()).Line == firstLine {
 		// only ok format is if each argument starts on the line when the previous ended, like so:
 		// `a(A{
@@ -57,7 +63,6 @@ func analyseFunctionCall(pass *analysis.Pass, call *ast.CallExpr) {
 			}
 			prevEnd = pass.Fset.Position(a.End()).Line
 		}
-
 		if prevEnd != lastLine {
 			pass.Reportf(call.Rparen, "closing paren should be on the same line as last argument")
 		}
@@ -110,4 +115,19 @@ func analyzeFunctionDeclaration(pass *analysis.Pass, fields *ast.FieldList) {
 		}
 		prevParamLine = line
 	}
+}
+
+func isSingleLineCall(pass *analysis.Pass, call *ast.CallExpr) bool {
+	if len(call.Args) == 0 {
+		return false
+	}
+	firstLine := pass.Fset.Position(call.Lparen).Line
+	lastLine := pass.Fset.Position(call.Rparen).Line
+	firstArgLine := pass.Fset.Position(call.Args[0].Pos()).Line
+	for _, arg := range call.Args {
+		if pass.Fset.Position(arg.Pos()).Line != firstArgLine {
+			return false
+		}
+	}
+	return firstArgLine == firstLine+1 && lastLine == firstArgLine+1
 }
