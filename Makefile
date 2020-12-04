@@ -6,14 +6,13 @@ all: \
 	go-test \
 	go-mod-tidy
 
-include tools/golangci-lint/rules.mk
 include tools/commitlint/rules.mk
-include tools/semantic-release/rules.mk
+include tools/golangci-lint/rules.mk
 
 .PHONY: go-review
 go-review:
 	$(info [$@] reviewing Go code...)
-	@go run ./cmd/goreview/main.go ./...
+	@go run . ./...
 
 .PHONY: go-test
 go-test:
