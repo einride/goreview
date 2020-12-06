@@ -10,6 +10,7 @@ import (
 	"go.einride.tech/review/internal/passes/multilineliterals"
 	"go.einride.tech/review/internal/passes/ptypes"
 	"go.einride.tech/review/internal/passes/stderror"
+	"go.einride.tech/review/internal/passes/testify"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/multichecker"
 )
@@ -25,6 +26,7 @@ func allAnalyzers() []*analysis.Analyzer {
 		labels.Analyzer(),
 		stderror.Analyzer(),
 		ptypes.Analyzer(),
+		testify.Analyzer(),
 		// ...insert more analyzers here
 	}
 }
