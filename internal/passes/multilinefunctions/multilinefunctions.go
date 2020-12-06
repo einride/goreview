@@ -37,6 +37,10 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	return nil, nil
 }
 
+// maxArgsToAnalyze is the maximum number of arguments to apply this rule to.
+// Calls with more args are considered special cases where special formatting is allowed.
+const maxCallArgsToAnalyze = 5
+
 func analyseFunctionCall(pass *analysis.Pass, call *ast.CallExpr) {
 	lastLine := pass.Fset.Position(call.Rparen).Line
 	firstLine := pass.Fset.Position(call.Lparen).Line
@@ -45,6 +49,9 @@ func analyseFunctionCall(pass *analysis.Pass, call *ast.CallExpr) {
 	}
 	if len(call.Args) == 0 {
 		return
+	}
+	if len(call.Args) > maxCallArgsToAnalyze {
+		return // too many fields
 	}
 	if isSingleLineCall(pass, call) {
 		return

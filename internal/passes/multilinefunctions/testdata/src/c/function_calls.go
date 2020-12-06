@@ -4,7 +4,7 @@ type A struct {
 	a *A
 }
 
-func a(A, A) {}
+func a(...A) {}
 
 func foo() {
 	a(A{}, A{}) // ok
@@ -19,6 +19,10 @@ func foo() {
 	a(
 		A{},
 		A{},
+	) // ok
+	a(
+		A{}, A{}, A{},
+		A{}, A{}, A{},
 	) // ok
 	a(
 		A{
