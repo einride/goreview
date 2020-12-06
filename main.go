@@ -8,6 +8,7 @@ import (
 	"go.einride.tech/review/internal/passes/labels"
 	"go.einride.tech/review/internal/passes/multilinefunctions"
 	"go.einride.tech/review/internal/passes/multilineliterals"
+	"go.einride.tech/review/internal/passes/ptypes"
 	"go.einride.tech/review/internal/passes/stderror"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/multichecker"
@@ -23,6 +24,7 @@ func allAnalyzers() []*analysis.Analyzer {
 		comments.Analyzer(),
 		labels.Analyzer(),
 		stderror.Analyzer(),
+		ptypes.Analyzer(),
 		// ...insert more analyzers here
 	}
 }
