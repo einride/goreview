@@ -15,3 +15,6 @@ linters:
     - unparam # allow constant parameters
     - goerr113 # allow "dynamic" errors
     - nlreturn # don't require blank lines before returns
+    - paralleltest # TODO: make tests paralleltest
+    - exhaustivestruct # don't require exhaustive structs
+    - cyclop # allow complex functions
