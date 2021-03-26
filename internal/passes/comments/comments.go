@@ -24,8 +24,10 @@ func run(pass *analysis.Pass) (interface{}, error) {
 					// ignore empty comments
 					continue
 				}
-				if strings.HasPrefix(g.Text, "//go:generate") {
-					// ignore go:generate comments
+				switch {
+				case strings.HasPrefix(g.Text, "//go:generate"), // ignore go:generate comments
+					strings.HasPrefix(g.Text, "//go:embed"), // ignore go:embed comments
+					strings.HasPrefix(g.Text, "//nolint"):   // ignore nolint comments
 					continue
 				}
 				if !strings.HasPrefix(g.Text, "// ") {
