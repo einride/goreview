@@ -1,8 +1,13 @@
 package a
 
-import "sync"
+import (
+	"sync"
+	"google.golang.org/protobuf/proto"
+)
 
 func Clean() {
+	var fd proto.Message
+	proto.Marshal(fd)
 	var mu sync.Mutex
 	mu.Lock()
 	defer mu.Unlock()
