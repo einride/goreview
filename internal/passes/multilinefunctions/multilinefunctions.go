@@ -1,6 +1,7 @@
 package multilinefunctions
 
 import (
+	"fmt"
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -20,7 +21,10 @@ func Analyzer() *analysis.Analyzer {
 }
 
 func run(pass *analysis.Pass) (interface{}, error) {
-	inspectResult := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	inspectResult, ok := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	if !ok {
+		return nil, fmt.Errorf("multilinefunctions inspector type cast failed")
+	}
 	nodeFilter := []ast.Node{
 		(*ast.FuncType)(nil),
 		(*ast.CallExpr)(nil),
