@@ -1,6 +1,7 @@
 package labels
 
 import (
+	"fmt"
 	"go/ast"
 
 	"go.einride.tech/review/internal/lettercase"
@@ -21,12 +22,18 @@ func Analyzer() *analysis.Analyzer {
 }
 
 func run(pass *analysis.Pass) (interface{}, error) {
-	inspectResult := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	inspectResult, ok := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	if !ok {
+		return nil, fmt.Errorf("labels inspector type cast failed")
+	}
 	nodeFilter := []ast.Node{
 		(*ast.LabeledStmt)(nil),
 	}
 	inspectResult.Preorder(nodeFilter, func(n ast.Node) {
-		labeledStmt := n.(*ast.LabeledStmt)
+		labeledStmt, ok := n.(*ast.LabeledStmt)
+		if !ok {
+			return
+		}
 		if !lettercase.IsCamel(labeledStmt.Label.Name) {
 			pass.Reportf(labeledStmt.Pos(), "labels must use CamelCase")
 		}

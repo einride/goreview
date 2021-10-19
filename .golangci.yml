@@ -18,3 +18,6 @@ linters:
     - paralleltest # TODO: make tests paralleltest
     - exhaustivestruct # don't require exhaustive structs
     - cyclop # allow complex functions
+    - maligned # deprecated
+    - scopelint # deprecated
+    - golint # deprecated

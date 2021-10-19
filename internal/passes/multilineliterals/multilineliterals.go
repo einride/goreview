@@ -1,6 +1,7 @@
 package multilineliterals
 
 import (
+	"fmt"
 	"go/ast"
 	"go/types"
 
@@ -21,12 +22,18 @@ func Analyzer() *analysis.Analyzer {
 }
 
 func run(pass *analysis.Pass) (interface{}, error) {
-	inspectResult := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	inspectResult, ok := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	if !ok {
+		return nil, fmt.Errorf("multilineliterals inspector type cast failed")
+	}
 	nodeFilter := []ast.Node{
 		(*ast.CompositeLit)(nil),
 	}
 	inspectResult.Preorder(nodeFilter, func(n ast.Node) {
-		lit := n.(*ast.CompositeLit)
+		lit, ok := n.(*ast.CompositeLit)
+		if !ok {
+			return
+		}
 		lBrace := pass.Fset.Position(lit.Lbrace)
 		rBrace := pass.Fset.Position(lit.Rbrace)
 		if lBrace.Line == rBrace.Line {
