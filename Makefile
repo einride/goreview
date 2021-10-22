@@ -6,11 +6,16 @@ all: \
 	go-lint \
 	go-review \
 	go-test \
-	go-mod-tidy
+	go-mod-tidy \
+	yaml-format \
+	markdown-format \
+	git-verify-nodiff
 
 include tools/commitlint/rules.mk
 include tools/golangci-lint/rules.mk
 include tools/semantic-release/rules.mk
+include tools/prettier/rules.mk
+include tools/git-no-diff/rules.mk
 
 .PHONY: clean
 clean:
