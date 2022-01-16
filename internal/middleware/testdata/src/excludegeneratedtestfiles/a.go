@@ -2,8 +2,7 @@ package excludegeneratedtestfiles
 
 import (
 	"fmt"
-
-	"log" // want "remove blank line above import"
+	"log"
 )
 
 func A() {
