@@ -3,7 +3,7 @@ module go.einride.tech/review
 go 1.17
 
 require (
-	golang.org/x/tools v0.1.8
+	golang.org/x/tools v0.1.9
 	gotest.tools/v3 v3.1.0
 )
 
