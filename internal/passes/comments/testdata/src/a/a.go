@@ -1,4 +1,5 @@
 package a
+//go:cgo_
 
 import (
 	"fmt"
