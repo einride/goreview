@@ -28,7 +28,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 				case strings.HasPrefix(g.Text, "//go:generate"), // ignore go:generate comments
 					strings.HasPrefix(g.Text, "//go:embed"), // ignore go:embed comments
 					strings.HasPrefix(g.Text, "//nolint"),   // ignore nolint comments
-					strings.HasPrefix(g.Text, "//go:build"): // ignore go:build comments
+					strings.HasPrefix(g.Text, "//go:build"), // ignore go:build comments
+					strings.HasPrefix(g.Text, "//go:cgo"):   // ignore cgo generated imports
 					continue
 				}
 				if !strings.HasPrefix(g.Text, "// ") {
