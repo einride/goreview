@@ -8,7 +8,6 @@ import (
 	"go.einride.tech/sage/tools/sggit"
 	"go.einride.tech/sage/tools/sggo"
 	"go.einride.tech/sage/tools/sggolangcilint"
-	"go.einride.tech/sage/tools/sggoreview"
 	"go.einride.tech/sage/tools/sgmarkdownfmt"
 	"go.einride.tech/sage/tools/sgyamlfmt"
 )
@@ -45,7 +44,7 @@ func GoTest(ctx context.Context) error {
 
 func GoReview(ctx context.Context) error {
 	sg.Logger(ctx).Println("reviewing Go files...")
-	return sggoreview.Command(ctx, "-c", "1", "./...").Run()
+	return sg.Command(ctx, "go", "run", ".", "-c", "1", "./...").Run()
 }
 
 func GoLint(ctx context.Context) error {
