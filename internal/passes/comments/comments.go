@@ -32,7 +32,7 @@ func run(pass *analysis.Pass) (interface{}, error) {
 					strings.HasPrefix(g.Text, "//go:cgo"):   // ignore cgo generated imports
 					continue
 				}
-				if !strings.HasPrefix(g.Text, "// ") {
+				if !(strings.HasPrefix(g.Text, "// ") || strings.HasPrefix(g.Text, "//\t")) {
 					pos := g.Slash
 					// special case for tests, since tests use comments for assertions
 					// expect the assertion to be located directly above the failing comment
