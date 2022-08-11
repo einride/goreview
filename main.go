@@ -2,7 +2,6 @@ package main
 
 import (
 	"go.einride.tech/review/internal/middleware"
-	"go.einride.tech/review/internal/passes/comments"
 	"go.einride.tech/review/internal/passes/filenames"
 	"go.einride.tech/review/internal/passes/labels"
 	"go.einride.tech/review/internal/passes/multilinefunctions"
@@ -17,7 +16,6 @@ func allAnalyzers() []*analysis.Analyzer {
 		multilineliterals.Analyzer(),
 		multilinefunctions.Analyzer(),
 		filenames.Analyzer(),
-		comments.Analyzer(),
 		labels.Analyzer(),
 		// ...insert more analyzers here
 	}
