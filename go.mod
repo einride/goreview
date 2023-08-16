@@ -1,6 +1,6 @@
 module go.einride.tech/review
 
-go 1.20
+go 1.21
 
 require (
 	golang.org/x/tools v0.12.0
