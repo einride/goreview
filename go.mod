@@ -6,7 +6,7 @@ toolchain go1.21.0
 
 require (
 	golang.org/x/tools v0.12.0
-	gotest.tools/v3 v3.5.0
+	gotest.tools/v3 v3.5.1
 )
 
 require (
