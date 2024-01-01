@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.21.0
 
 require (
-	golang.org/x/tools v0.16.0
+	golang.org/x/tools v0.16.1
 	gotest.tools/v3 v3.5.1
 )
 
