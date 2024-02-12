@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: goreview
+  title: Go Review
+  description: Go linter with Einride standard rules not already covered by open source linters
+spec:
+  type: library
+  lifecycle: production
+  owner: platform-engineering
+  system: developer-tools
