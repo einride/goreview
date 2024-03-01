@@ -4,4 +4,4 @@ go 1.21
 
 toolchain go1.21.0
 
-require go.einride.tech/sage v0.264.0
+require go.einride.tech/sage v0.272.0

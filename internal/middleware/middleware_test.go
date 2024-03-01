@@ -13,7 +13,7 @@ func TestApply(t *testing.T) {
 	originals := []*analysis.Analyzer{
 		{
 			Name: "analyzer1",
-			Run: func(pass *analysis.Pass) (interface{}, error) {
+			Run: func(_ *analysis.Pass) (interface{}, error) {
 				return nil, errors.New("boom")
 			},
 			Requires: []*analysis.Analyzer{
@@ -39,7 +39,7 @@ func TestApply(t *testing.T) {
 		},
 	}
 	// when applying middleware that never returns errors
-	m := func(run RunFn) RunFn {
+	m := func(_ RunFn) RunFn {
 		return func(*analysis.Pass) (interface{}, error) {
 			return nil, nil
 		}
