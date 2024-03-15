@@ -1,3 +1,4 @@
+// Deprecated: Use github.com/golangci/golangci-lint instead.
 module go.einride.tech/review
 
 go 1.21
