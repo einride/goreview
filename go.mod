@@ -2,7 +2,7 @@ module go.einride.tech/review
 
 go 1.21
 
-toolchain go1.21.0
+toolchain go1.22.1
 
 require (
 	golang.org/x/tools v0.18.0
